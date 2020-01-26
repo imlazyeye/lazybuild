@@ -124,7 +124,7 @@ class GMBuilder:
     self._PrintWrapper('Invoking GameMaker compiler...')
     buildCommand = f'"C:/ProgramData/GameMakerStudio2/Cache/runtimes/runtime-{self._runtimeVersion}/bin/Igor.exe"  -j=8 -options="{self.outputFolder}/Input/Options/build.bff" -v -- Windows PackageZip'
     self._sshClient.Call(buildCommand, printResult=self._verbose)
-    self._PrintWrapper('Compiler has finished running.')
+    print('Compiler has finished running.')
 
   def RetrieveBuild(self):
     sftpClient = self._sshClient.OpenSFTP()
@@ -133,6 +133,7 @@ class GMBuilder:
       sftpClient.stat(path)
       self._PrintWrapper('Sending the output back to local machine...')
       sftpClient.get(path, f'./{self._projectName}.zip')
+      print(f'Output build is located at ./{self._projectName}.zip')
     except:
       self._PrintWrapper(colored('Failed to retrieve ouput file!', 'red'))
       

@@ -144,7 +144,7 @@ Available commands:
     status = 'not online'
     if self.builderInstance.online:
       status = 'online'
-    print(f'Instance is {status}.')
+    print(f'Remote machine is {status}.')
 
   def Console(self):
     if not self.builderInstance.online:
@@ -170,6 +170,8 @@ Available commands:
       clearCache = self.YesNoPrompt('Would you like to clear the cache prior to building?')
       verbose = self.YesNoPrompt('Would you like verbose output?')
       sshClient = ssh.SSHClient(self.sshUsername, self.builderInstance.GetInstanceIP(), self.sshPassword, self.sshKeyFilePath)
+      if not verbose:
+        print('Starting build (this may take a while!)...')
       myBuilder = gmBuilder.GMBuilder(self.config, sshClient, verbose)
       myBuilder.CreateBuildFolders(clearCache=clearCache)
       myBuilder.DumpOptionFiles()

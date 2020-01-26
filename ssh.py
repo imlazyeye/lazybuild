@@ -39,8 +39,8 @@ class SSHClient:
 
   def Call(self, command, printResult=False):
     stdin, stdout, stderr = self.client.exec_command(command)
-    if printResult:
-      for line in iter(lambda: stdout.readline(2048), ''):
+    for line in iter(lambda: stdout.readline(2048), ''):
+      if printResult:
         print(line, end='')
     return stdin, stdout, stderr
 
