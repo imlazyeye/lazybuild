@@ -1,5 +1,9 @@
 # lazybuild
 resources/misc/rsa.pem
+lazybuildConfig.dat
+
+# VSC
+.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

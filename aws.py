@@ -1,8 +1,11 @@
 # Imports
 import boto3
 import time 
+import sys
 import subprocess
 from termcolor import colored
+import colorama
+colorama.init()
 
 class AWSInstance:
 

@@ -7,6 +7,8 @@ import stat
 import ssh
 import time
 from termcolor import colored
+import colorama
+colorama.init()
 
 class GMBuilder:
 

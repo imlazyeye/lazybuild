@@ -10,6 +10,8 @@ import time
 import getpass
 import base64
 from termcolor import colored
+import colorama
+colorama.init()
 
 __VERSION__ = '1.0.0'
 
@@ -19,10 +21,14 @@ class LazyBuild:
     
     # Core data
     print('Loading user defined options...')
+    self._configurationKeys = ['region', 'instanceID', 'sshUsername', 'sshPassword', 'yoyoID', 'runtimeVersion', 'steamSDKPath', 'yypPath', 'configuration', 'gitUsername', 'gitPassword', 'gitBranch', 'gitURL']
     try:
       self.config = self.LoadConfig()
     except:
       print(colored('Configure options were not found. Please set them now!', 'yellow'))
+      self.config = {}
+      for key in self._configurationKeys:
+        self.config[key] = ''
       self.Configure()
     print('Checking SSH permission file...')
     self.sshKeyFilePath = './resources/misc/rsa.pem'
@@ -47,7 +53,14 @@ class LazyBuild:
       'exit': 'Exits this program'
     }
     print('Fetching instance...')
-    self.builderInstance = aws.AWSInstance(self.region, self.instanceID, self.shutdownOnDestroy)
+    try:
+      self.builderInstance = aws.AWSInstance(self.region, self.instanceID, self.shutdownOnDestroy)
+    except:
+      print(colored('There was an issue trying to access your remote machine!', 'red'))
+      if self.YesNoPrompt('Would you like to edit your configuration options?'):
+        self.Configure()
+        print('Please start lazybuild again to apply these changes.')
+      sys.exit()
 
     # Welcome message
     asciiMessage = r'''
@@ -113,8 +126,7 @@ Available commands:
       currentValueString = '[]'
       if self.config[key] != '':
         currentValueString = f'[{self.config[key]}]'
-      keyString = colored(key, 'cyan')
-      message = '{:<15}'.format(f'{keyString} {currentValueString}:')
+      message = '{:<30}'.format(f'{key} {currentValueString}:')
       if 'password' in key.lower():
         resp = getpass.getpass(message)
       else:
@@ -124,7 +136,7 @@ Available commands:
 
     print('\nProvide a value for each option or press enter to keep the current value.')
     print('Please check the README for more information on each option!\n')
-    for key in ['region', 'instanceID', 'sshUsername', 'sshPassword', 'yoyoID', 'runtimeVersion', 'steamSDKPath', 'yypPath', 'configuration', 'gitUsername', 'gitPassword', 'gitBranch', 'gitURL']:
+    for key in self._configurationKeys:
       InputHandle(key)
     self.SaveConfig()
 
@@ -151,21 +163,12 @@ Available commands:
     print('Started remote desktop connection!')
 
   def Build(self):
-    def ClearCachePrompt():
-      return self.YesNoPrompt('Would you like to clear the cache prior to building?')
-
-    def VerbosePrompt():
-      return self.YesNoPrompt('Would you like verbose output?')
-      
-    def ShutdownPrompt():
-      return self.YesNoPrompt('Would you like to shut down the instance?')
-
     if not self.builderInstance.online:
       print(colored('Remote machine is not online!', 'yellow'))
       return
     else:
-      clearCache = ClearCachePrompt()
-      verbose = VerbosePrompt()
+      clearCache = self.YesNoPrompt('Would you like to clear the cache prior to building?')
+      verbose = self.YesNoPrompt('Would you like verbose output?')
       sshClient = ssh.SSHClient(self.sshUsername, self.builderInstance.GetInstanceIP(), self.sshPassword, self.sshKeyFilePath)
       myBuilder = gmBuilder.GMBuilder(self.config, sshClient, verbose)
       myBuilder.CreateBuildFolders(clearCache=clearCache)
@@ -173,7 +176,7 @@ Available commands:
       myBuilder.UpdateProject()
       myBuilder.CompileProject()
       myBuilder.RetrieveBuild()
-      if ShutdownPrompt():
+      if self.YesNoPrompt('Would you like to shut down the instance?'):
         self.builderInstance.Shutdown()
 
   def Startup(self):

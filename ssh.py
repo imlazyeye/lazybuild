@@ -3,6 +3,8 @@ import paramiko
 import sys
 import time 
 from termcolor import colored
+import colorama
+colorama.init()
 
 class SSHClient:
 
