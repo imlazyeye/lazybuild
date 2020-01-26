@@ -1,0 +1,4 @@
+# cat requirements.txt
+boto3==1.10.19
+paramiko==2.6.0
+termcolor==1.1.0
