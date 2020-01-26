@@ -5,7 +5,7 @@
 ### What is this?
 lazybuild is a Python project allowing the user to create builds of their GMS2 project with a remote machine. For users who need to create builds often, this tool is useful to avoid locking up their computer waiting for a compile to finish, or even allowing non-programmer's on their team to create their own builds as needed.
 
-While intended to be used for distributed builds only, users who have lower-end machines may be able also to use lazybuild to make their testing more efficient by utilizing a powerful remote machine. Please do note, however, that my experiments indicate that the GMS2 compiler does not scale up very well on powerful hardware, and you receive diminishing returns quickly.
+While intended to be used for distributed builds only, users who have lower-end machines may be able also to use lazybuild to make their testing more efficient by utilizing a powerful remote machine. Please do note, however, that experiments indicate that the GMS2 compiler's performance does not scale up very well on powerful hardware, and you receive diminishing returns quickly.
 
 ### What is supported?
 * Both VM and YYC builds
@@ -22,11 +22,13 @@ While intended to be used for distributed builds only, users who have lower-end 
 This tool is primarily aimed at professional game developers who would benefit from this efficiency boost, but are also familiar enough with Python and cloud computing to configure lazybuild to their needs. **This tool is not necessarily ready to use "out of the box."** You can not clone this repository, boot up the scripts, and build your project. This repository merely serves as a home for the Python required to make everything happen. **Contributions to extend the behavior of lazybuild out of the box are welcome!**
 
 ### How do I get started?
-1. First, you need an AWS instance set up and ready to go. The instance should have the following requirements fulfilled:
+0. Clone the repository
+1. Ensure that you have an AWS instance set up and ready to go. The instance should have the following requirements fulfilled:
   * Running Windows 10
   * GameMaker Studio 2 Installed
   * OpenSSH installed and running (server mode) 
-2. Next, ensure that your computer has Python 3 and pip installed and configured. Once this finishes, install the needed modules by entering to your terminal:
+2. Ensure that your computer has Python 3 and pip installed and configured.
+3. Navigate to the cloned repository and open a terminal, such as CMD, and install the needed modules by entering:
 `pip install -r requirements.txt`
 3. Once pip finishes installing your modules, you can start the tool by running:
 `python lazybuild.py`
