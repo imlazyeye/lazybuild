@@ -13,7 +13,7 @@ from termcolor import colored
 import colorama
 colorama.init()
 
-__VERSION__ = '1.0.0'
+__VERSION__ = '1.0.1'
 
 class LazyBuild:
 
