@@ -17,14 +17,14 @@ class GMBuilder:
     def LoadOptions(config):
       self._PrintWrapper('Loading user configured options...')
       config['projectName'] = os.path.basename(config['yypPath']).replace('.yyp', '')
-      config['remoteProjectPath'] = 'C:\\users\\buildManager\\AppData\\Local\\lazybuild\\Input\\Project'
+      config['remoteProjectPath'] = 'C:/users/buildManager/AppData/Local/lazybuild/Input/Project'
       return config
 
     self._sshClient = sshClient
     self._verbose = verbose
     configData = LoadOptions(config)
-    self.outputFolder = 'C:\\users\\buildManager\\AppData\\Local\\lazybuild'
-    self.cacheFolder = 'C:\\Users\\buildManager\\AppData\\Roaming\\GameMakerStudio2\\Cache\\GMS2CACHE'
+    self.outputFolder = 'C:/users/buildManager/AppData/Local/lazybuild'
+    self.cacheFolder = 'C:/Users/buildManager/AppData/Roaming/GameMakerStudio2/Cache/GMS2CACHE'
     self._yoyoID = configData['yoyoID']
     self._runtimeVersion = configData['runtimeVersion']
     self._steamSDKPath = configData['steamSDKPath']
@@ -129,7 +129,7 @@ class GMBuilder:
   def RetrieveBuild(self):
     sftpClient = self._sshClient.OpenSFTP()
     try:
-      path = os.path.join(self.outputFolder, f'Output\\GameZip\\{self._projectName}.zip')
+      path = os.path.join(self.outputFolder, f'Output/GameZip/{self._projectName}.zip')
       sftpClient.stat(path)
       self._PrintWrapper('Sending the output back to local machine...')
       sftpClient.get(path, f'./{self._projectName}.zip')

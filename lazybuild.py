@@ -84,7 +84,7 @@ Please ensure you have read the README file before continuing!
 Available commands:
     '''
     print(welcomeMessage)
-    self.PrintCommands()
+    self.Help()
 
   def YesNoPrompt(self, message):
     resp = input(f'{message} [y/n] ')
@@ -96,7 +96,7 @@ Available commands:
       print(colored('Response invalid! Please use either "y" or "n".', 'yellow'))
       return self.YesNoPrompt(message)
 
-  def PrintCommands(self):
+  def Help(self):
     commands = ''
     for key, value in self.inputCommands.items():
       name = colored(key, 'cyan')
