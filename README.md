@@ -30,7 +30,8 @@ This tool is primarily aimed at professional game developers who would benefit f
 2. Ensure that your computer has Python 3 and pip installed and configured.
 3. Navigate to the cloned repository and open a terminal, such as CMD, and install the needed modules by entering:
 `pip install -r requirements.txt`
-3. Once pip finishes installing your modules, you can start the tool by running:
+4. Save your AWS instance's key permission file in a new folder in resources called `misc`. The full path to this file should be `/resources/misc/rsa.pem`
+3. Start the tool by running:
 `python lazybuild.py`
 4. Fill out all necessary items for the configuration. lazybuild should prompt you to do this automatically.
 
