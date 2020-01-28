@@ -1,19 +1,26 @@
+"""lazybuild: a remote compiling tool for GameMaker Studio 2"""
+
 # Import libraries
 import sys
 import os
-import aws
-import ssh
-import gmBuilder
 import subprocess
 import json 
 import time
 import getpass
 import base64
+import aws
+import ssh
+import gmBuilder
 from termcolor import colored
 import colorama
 colorama.init()
 
-__VERSION__ = '1.0.1'
+__author__ = "Gabe Weiner"
+__license__ = "MIT"
+__version__ = "1.0.1"
+__maintainer__ = "Gabe Weiner"
+__email__ = "imlazyeye (at) gmail.com"
+__status__ = "Prototype"
 
 class LazyBuild:
 
