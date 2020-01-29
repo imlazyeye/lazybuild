@@ -84,7 +84,7 @@ class LazyBuild:
 -------------------------------------------------
     '''
     print(colored(asciiMessage, 'green'))
-    welcomeMessage = f'''Welcome to lazybuild! You are running version {__VERSION__}
+    welcomeMessage = f'''Welcome to lazybuild! You are running version {__version__}
 
 Please ensure you have read the README file before continuing!
 
