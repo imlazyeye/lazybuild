@@ -17,7 +17,7 @@ colorama.init()
 
 __author__ = "Gabe Weiner"
 __license__ = "MIT"
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 __maintainer__ = "Gabe Weiner"
 __email__ = "imlazyeye (at) gmail.com"
 __status__ = "Prototype"

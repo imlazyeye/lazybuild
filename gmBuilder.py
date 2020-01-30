@@ -103,7 +103,7 @@ class GMBuilder:
       sftpClient.stat(os.path.join(self._remoteProjectPath, '.git')) # path test
       self._PrintWrapper('Found project repo!')
       self._PrintWrapper('Fetching and pulling updates...')
-      self._sshClient.Call(f'cd {self._remoteProjectPath} && git reset --hard && git checkout {self._gitBranch} && git fetch && git pull && git status')
+      self._sshClient.Call(f'cd {self._remoteProjectPath} && git clean -fd && git reset --hard && git checkout {self._gitBranch} && git fetch && git pull && git status')
     
     except IOError:
       self._PrintWrapper('Repository was not found on the remote!')
